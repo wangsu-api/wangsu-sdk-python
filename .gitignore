@@ -1,0 +1,6 @@
+*.pyc
+build/
+dist/
+wangsu_sdk_python.egg-info/
+.python-version
+.tox/

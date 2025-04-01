@@ -1,0 +1,78 @@
+# Wangsu SDK for Python
+
+This SDK provides Python interfaces to interact with Wangsu API services.
+
+## Installation
+
+Install the SDK using pip:
+
+```bash
+pip install wangsu-sdk-python
+```
+
+Install the SDK for a specific product category using pip:
+
+```bash
+pip install wangsu-sdk-python-manageassets
+```
+
+
+## Requirements
+
+- Python 3.6 or later
+- Dependencies:
+  - requests >= 2.10.0
+  - alibabacloud_tea >= 0.3.3
+  - alibabacloud_tea_openapi >= 0.3.6
+  - alibabacloud_tea_console >= 0.0.1
+  - alibabacloud_tea_util >= 0.3.8
+
+## Quick Start
+
+### Example
+
+The SDK uses AKSK authentication. You need to configure your access key and secret key:
+
+```python
+import json
+from wangsu.common.auth.AkSkConfig import AkSkConfig
+from wangsu.common.auth.AkSkAuth import AkSkAuth
+from wangsu.manageassets.models import *
+
+# Refer to the API list at the end of this document and modify the corresponding {ActionName}, Method, Uri
+request = {ActionName}Request()
+
+aksk_config = AkSkConfig()
+aksk_config.access_key = "YOUR_ACCESS_KEY"
+aksk_config.secret_key = "YOUR_SECRET_KEY"
+aksk_config.uri = "/your/api/path"
+aksk_config.method = "GET"  # HTTP method: GET, POST, PUT, DELETE, etc.
+
+# Convert request to JSON and make the API call
+response = AkSkAuth.invoke(aksk_config, json.dumps(request.to_map()))
+print(response)
+
+```
+
+
+
+## API List
+For detailed API documentation and available methods, please refer to the [official Wangsu API documentation](https://www.wangsu.com/document/api-doc/Overview?productType=all).
+
+| ActionName | enDescription | client_methods | uri |
+| --- | --- | --- | --- |
+| Getvideolist | Call the getVideoList client to get a list of uploaded videos (including: upload time, video name, video ID, video status, etc.) | POST | /vod/videoManage/getVideoList |
+| Videoedit | The basic information about a single video can be edited by calling videoEdit. | POST | /vod/videoManage/videoEdit |
+| Videoblock | Invoke videoBlock to mask and disable uploaded videos. When the video is disabled, you cannot watch it any more. | POST | /vod/videoManage/videoBlock |
+| Videoenable | Call videoEnable to re-enable the disabled video. | POST | /vod/videoManage/videoEnable |
+| Deletevideo | Delete the uploaded video by calling deleteVideo. | POST | /vod/videoManage/deleteVideo |
+| Getmateriallist | Call getMaterialList to get the information list of uploaded material | POST | /vod/material/getMaterialList |
+| Materialedit | Calling materialEdit allows you to edit the underlying information of a single material file. | POST | /vod/material/materialEdit |
+| Deletematerial | Delete the uploaded material file by calling deleteVideo. | POST | /vod/material/deleteMaterial |
+| Getaudiolist | Query the list of audio files and sort them in reverse order by upload time. Support paging to get a list | POST | /vod/audioManage/getAudioList |
+| Editaudio | Edits the basic information that specifies a single tone frequency | POST | /vod/audioManage/editAudio |
+| Deleteaudio | Deletes the specified audio through this interface. | POST | /vod/audioManage/deleteAudio |
+| Getcategorylist | Get category list  | POST | /vod/videoCategory/getCategoryList |
+| Createcategory | Create category | POST | /vod/videoCategory/createCategory |
+| Deletecategory | Delete category | POST | /vod/videoCategory/deleteCategory |
+| Deletevideobycategory | Delete video by category  | POST | /vod/videoCategory/deleteVideoByCategory |
